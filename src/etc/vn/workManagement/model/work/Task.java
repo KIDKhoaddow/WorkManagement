@@ -65,4 +65,17 @@ public class Task extends Work {
         this.activity = activity;
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                " title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", state=" + state +
+                ", priority=" + priority +
+                ", estimate=" + estimate +
+                ", remainingWork=" + remainingWork +
+                ", taskPoint=" + taskPoint +
+                ", activity=" + activity +
+                '}';
+    }
 }

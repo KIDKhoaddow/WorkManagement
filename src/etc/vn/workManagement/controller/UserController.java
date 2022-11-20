@@ -2,6 +2,7 @@ package etc.vn.workManagement.controller;
 
 import etc.vn.workManagement.helper.Validate;
 import etc.vn.workManagement.model.user.Role;
+import etc.vn.workManagement.model.user.User;
 import etc.vn.workManagement.service.user.UserServiceImpl;
 import etc.vn.workManagement.view.adminView.AdminView;
 import etc.vn.workManagement.view.userView.UserView;
@@ -40,6 +41,11 @@ public class UserController {
     public boolean changePassword(String newPassword) {
         return userService.changePassword(newPassword);
     }
+
+    public User findUserById(Long id){
+        return userService.findById(id);
+    }
+
 
 
 }

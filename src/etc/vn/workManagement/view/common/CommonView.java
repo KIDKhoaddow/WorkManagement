@@ -1,6 +1,8 @@
 package etc.vn.workManagement.view.common;
 
+import etc.vn.workManagement.controller.UserController;
 import etc.vn.workManagement.model.user.User;
+import etc.vn.workManagement.model.work.Task;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,11 +12,16 @@ public class CommonView {
 
     public static final String MESSAGE_TO_EXIT = "Nhấn số 0 để có thể thoát chương trình.";
     public static final String MESSAGE_TO_BACK = "0.Quay lại";
+    public static final  String MESSAGE_TO_CHOOSE="Lựa chọn của bạn là : ";
+    public static final String MESSAGE_TO_REJECT_SELECTION=" Sự lựa chọn của bạn nằm ngoài khả năng ứng dụng !!";
+
     private static final CommonView INSTANCE = new CommonView();
 
     public static CommonView getInstance() {
         return INSTANCE;
     }
+
+      UserController userController=UserController.getInstance();
 
     public int inputInt(String string, Scanner scanner) {
         System.out.print(string);
@@ -73,5 +80,26 @@ public class CommonView {
         System.out.format("+---------+-----------------+-----------------+-----------------+---------+-----+--------------+-------------------+---------------------------+%n");
     }
 
+    public void displayTaskList(List<Task> tasks) {
+        System.out.format("+---------+-----------------+-----------------+-----------------+---------+----------+--------------+-------------------+---------------+-----------+%n");
+        System.out.format("| Task ID |       Title     |    Describe     |     userName    |  State  | Priority |   Estimate   |  Remaining Work   |   Task Point  |  Activity |%n");
+        System.out.format("+---------+-----------------+-----------------+-----------------+---------+----------+--------------+-------------------+---------------+-----------+%n");
 
+        for (Task element : tasks) {
+            displayTask(element);
+        }
+    }
+
+    public void displayTask(Task task) {
+
+        String leftAlignFormat = "| %-7s | %-15s | %-15s | %-15s | %-7s | %-8d | %-12d | %-17d | %-13d | %-11s |%n";
+
+        String userName=UserController.getInstance().findUserById(task.getIdUser()).getName();
+
+
+        System.out.format(leftAlignFormat,task.getId(),task.getTitle(),task.getDescription(),
+                userName,task.getState(),task.getPriority(),
+                task.getEstimate(),task.getRemainingWork(),task.getTaskPoint(),task.getActivity());
+        System.out.format("+---------+-----------------+-----------------+-----------------+---------+----------+--------------+-------------------+---------------+-----------+%n");
+    }
 }

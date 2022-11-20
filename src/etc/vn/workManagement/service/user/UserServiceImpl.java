@@ -41,8 +41,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean delete(Long id, User user) {
-        return delete(id, user);
+    public boolean delete(Long id) {
+        return userList.remove(id);
     }
 
     @Override
@@ -58,18 +58,6 @@ public class UserServiceImpl implements IUserService {
             }
         }
         return null;
-    }
-
-    @Override
-    public void displayById(Long id) {
-        commonView.displayObject(findById(id));
-    }
-
-    @Override
-    public void displayALl() {
-        for (User element : userList) {
-            commonView.displayObject(element);
-        }
     }
 
     @Override

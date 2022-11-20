@@ -8,14 +8,10 @@ public interface IGeneralService <T> {
 
     void edit(int index, T t);
 
-    boolean delete(Long id, T t);
+    boolean delete(Long idTask);
 
     List<T> findAll();
 
     T findById(Long id);
-
-    void displayById(Long id);
-
-    void displayALl();
 
 }

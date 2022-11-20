@@ -23,8 +23,8 @@ public class WorkServiceImpl implements IWorkService{
 
     private static ArrayList<Task> loadTask() {
         ArrayList<Task> tasks = new ArrayList<>();
-        for (Long i = 0L; i <=10L ; i++) {
-            tasks.add(new Task(i,"task của khoa"+i,"task của khoa"+i,1L,
+        for (Long i = 1L; i <=10L ; i++) {
+            tasks.add(new Task(i,"task của khoa"+i,"task của khoa"+i,2L,
                     Status.NEW,2,8,8,8, Activity.TRAINING));
         }
         return tasks;
@@ -38,12 +38,22 @@ public class WorkServiceImpl implements IWorkService{
 
     @Override
     public void edit(int index, Task task) {
-        taskList.add(index,task);
+        taskList.set(index,task);
     }
 
+    public Task edit (Task task){
+        for (Task element :taskList) {
+            if(element.getId().equals(task.getId())){
+                int index= taskList.indexOf(task);
+                edit(index,task);
+                return task;
+            }
+        }
+        return null;
+    }
     @Override
-    public boolean delete(Long id, Task task) {
-        return taskList.remove(findById(id));
+    public boolean delete(Long idTask) {
+        return taskList.remove(findById(idTask));
     }
 
     @Override
@@ -62,13 +72,36 @@ public class WorkServiceImpl implements IWorkService{
     }
 
     @Override
-    public void displayById(Long id) {
-        commonView.displayObject(findById(id));
+    public List<Task> findTaskByUserId(Long id) {
+        List<Task> list=new ArrayList<>();
+        for (Task element :taskList) {
+            if(element.getIdUser().equals(id)){
+                list.add(element);
+            }
+        }
+        return list;
     }
 
     @Override
-    public void displayALl() {
+    public List<Task> findTaskToDoOrNewByUserId(Long id) {
+        List<Task> list=new ArrayList<>();
+        for (Task element :taskList) {
+            if(element.getIdUser().equals(id)&&(!element.getState().equals(Status.DONE))){
+                list.add(element);
+            }
+        }
+        return list;
     }
 
+    @Override
+    public List<Task> findDoneTask() {
+        List<Task> list=new ArrayList<>();
+        for (Task element :taskList) {
+            if(element.getState().equals(Status.DONE)){
+                list.add(element);
+            }
+        }
+        return list;
+    }
 
 }
